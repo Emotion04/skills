@@ -1,0 +1,45 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "AI",
+      "description": "多供应商 AI 接入、流式输出和 Token 计数",
+      "skills": [
+        "plug-ai",
+        "streaming-typing-effect",
+        "token-counter"
+      ]
+    },
+    {
+      "title": "前端界面",
+      "description": "移动端导航、液态玻璃设计系统和极简黑白风格",
+      "skills": [
+        "floating-glow-tabbar",
+        "sizeflow-liquid-glass",
+        "monochrome-archive-editorial"
+      ]
+    },
+    {
+      "title": "视频",
+      "description": "视频和音频处理工具",
+      "skills": [
+        "custom-voiceover"
+      ]
+    },
+    {
+      "title": "搜索",
+      "description": "网页搜索和数据获取工具",
+      "skills": [
+        "agentfetch"
+      ]
+    },
+    {
+      "title": "元技能",
+      "description": "写 Skill 的 Skill",
+      "skills": [
+        "write-skills"
+      ]
+    }
+  ]
+}
