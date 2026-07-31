@@ -65,3 +65,10 @@
 5. 最后再收紧句子。
 
 不要从缩短句子开始：压缩后的噪音仍然是噪音。
+
+## 结构规范
+
+- 目录结构只用官方认可的名字：`SKILL.md`/`scripts/`/`references/`/`assets/`/`examples/`。自定义名（如 `lib/`、`utils/`）CLI 虽能整体复制，但其他兼容 Agent 可能不认。
+- 多 skill 仓库统一 `skills/<name>/SKILL.md`，CLI 递归扫描。放错位置则无法被发现。
+- 按需加载的文档放 `references/`，可执行代码放 `scripts/`，平台元数据放 `agents/`。
+- 内容拆分的标准是"这条内容是否所有运行都需要"：不是就拆到 `references/` 并配精确指针。

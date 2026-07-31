@@ -21,9 +21,9 @@ npx skills add Emotion04/write-skills --skill write-skills
 
 | 文件 | 用途 |
 |---|---|
-| `skills/write-skills/SKILL.md` | 核心入口，写 Skill 的完整工作流 |
-| `skills/write-skills/REFERENCE.md` | 指令审计手册，保留/删除判据 |
-| `skills/write-skills/EVALS.md` | 行为验证方法 |
+| `SKILL.md` | 核心入口，写 Skill 的完整工作流 |
+| `references/instruction-audit.md` | 指令审计手册，保留/删除判据 |
+| `references/behavior-validation.md` | 行为验证方法 |
 
 ## 许可
 
