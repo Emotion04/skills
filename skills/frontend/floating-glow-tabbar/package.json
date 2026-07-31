@@ -1,0 +1,25 @@
+{
+  "name": "floating-glow-tabbar",
+  "version": "1.0.0",
+  "description": "Vue 3 floating bottom tab bar with warm-white touch-tracking glow orb, breathing shrink-out animation, and drag-to-switch navigation. iOS-style pill design with backdrop-blur glass effect.",
+  "type": "skill",
+  "main": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "FloatingGlowTabBar.vue"
+  ],
+  "keywords": [
+    "vue",
+    "tab-bar",
+    "bottom-navigation",
+    "glow-effect",
+    "touch-interaction",
+    "mobile-navigation",
+    "floating-nav",
+    "glass-effect",
+    "backdrop-blur",
+    "tailwind"
+  ],
+  "homepage": "https://github.com/emotion04/floating-glow-tabbar",
+  "license": "MIT"
+}
