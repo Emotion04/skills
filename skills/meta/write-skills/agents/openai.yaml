@@ -1,0 +1,5 @@
+interface:
+  display_name: "Write Skills"
+  short_description: "Create lean, predictable skills"
+policy:
+  allow_implicit_invocation: false
