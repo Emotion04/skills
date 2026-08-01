@@ -7,7 +7,8 @@
 | 供应商 | Base URL | Auth | 默认模型 |
 |--------|----------|------|----------|
 | DeepSeek | `https://api.deepseek.com` | `Bearer` | `deepseek-v4-flash` |
-| 小米 MiMo | `https://api.xiaomimimo.com` | `api-key` | `mimo-v2.5-pro` |
+| 小米 MiMo (Token Plan) | `https://token-plan-cn.xiaomimimo.com` | `api-key` | `mimo-v2.5-pro` |
+| 小米 MiMo (API) | `https://api.xiaomimimo.com` | `api-key` | `mimo-v2.5-pro` |
 | 通义千问 | `https://dashscope.aliyuncs.com/compatible-mode` | `Bearer` | `qwen3.7-flash` |
 | Step Plan | `https://api.stepfun.com/step_plan` | `Bearer` | `step-3.7-flash` |
 
@@ -20,7 +21,8 @@
 ```ts
 const PROVIDERS = {
   deepseek: { url: "https://api.deepseek.com", header: "Authorization", prefix: "Bearer " },
-  mimo:     { url: "https://api.xiaomimimo.com", header: "api-key", prefix: "" },
+  mimo-token-plan: { url: "https://token-plan-cn.xiaomimimo.com", header: "api-key", prefix: "" },
+  mimo-api: { url: "https://api.xiaomimimo.com", header: "api-key", prefix: "" },
   qwen:     { url: "https://dashscope.aliyuncs.com/compatible-mode", header: "Authorization", prefix: "Bearer " },
   step:     { url: "https://api.stepfun.com/step_plan", header: "Authorization", prefix: "Bearer " },
 };
@@ -57,8 +59,10 @@ export async function POST(req: Request) {
 |--------|------|------|
 | DeepSeek | `deepseek-v4-flash` | 快速，性价比 |
 | DeepSeek | `deepseek-v4-pro` | 高质量 |
-| 小米 MiMo | `mimo-v2.5` | 标准版 |
-| 小米 MiMo | `mimo-v2.5-pro` | 旗舰版 |
+| 小米 MiMo (Token Plan) | `mimo-v2.5` | 标准版 |
+| 小米 MiMo (Token Plan) | `mimo-v2.5-pro` | 旗舰版 |
+| 小米 MiMo (API) | `mimo-v2.5` | 标准版 |
+| 小米 MiMo (API) | `mimo-v2.5-pro` | 旗舰版 |
 | 通义千问 | `qwen3.7-flash` | 快速响应 |
 | 通义千问 | `qwen3.7-plus` | 均衡 |
 | 通义千问 | `qwen3.7-max` | 旗舰 |
@@ -131,4 +135,4 @@ headers["x-provider"] = "deepseek";
 
 ## 流式输出
 
-后端路由里 `stream: true` 透传 SSE 流。前端的解析逻辑见 [streaming.md](references/streaming.md)。如果你暂时不需要流式输出，把 `stream: true` 改成 `false`，返回普通 JSON 即可。
+后端路由里 `stream: true` 透传 SSE 流。前端的解析逻辑见 [streaming.md](streaming.md)。如果你暂时不需要流式输出，把 `stream: true` 改成 `false`，返回普通 JSON 即可。

@@ -5,7 +5,7 @@ description: Custom voiceover (自定义口播) feature for video editing — tr
 
 # Custom Voiceover (自定义口播)
 
-> **⚠️ Before implementing, read [REFERENCE.md](REFERENCE.md).** It contains FFmpeg commands, common pitfalls, implementation checklist, and testing strategy that this overview references.
+> **⚠️ Before implementing, read [references/REFERENCE.md](references/REFERENCE.md).** It contains FFmpeg commands, common pitfalls, implementation checklist, and testing strategy that this overview references.
 
 Transcribe speech in videos → split by subtitle segments → drag to timeline → remix with background audio → output final video. Supports three editing modes.
 
@@ -82,7 +82,7 @@ SSE Events:
 
 ## Implementation Details
 
-See [REFERENCE.md](REFERENCE.md) for:
+See [references/REFERENCE.md](references/REFERENCE.md) for:
 - Complete FFmpeg commands (audio extraction, video splitting, concat two-tier strategy, background audio mixing, subtitle overlay)
 - Step-by-step implementation with code snippets
 - Word-density filtering, duration trimming, duplicate submit prevention

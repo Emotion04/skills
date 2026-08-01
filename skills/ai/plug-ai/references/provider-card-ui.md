@@ -96,12 +96,13 @@ Server 转发:
 以下是完整 React 组件，拿来即用。其他框架按相同逻辑重写即可。
 
 ```tsx
-type Provider = "deepseek" | "mimo" | "qwen" | "step";
+type Provider = "deepseek" | "mimo-token-plan" | "mimo-api" | "qwen" | "step";
 interface Profile { id: string; name: string; provider: Provider; baseUrl?: string; apiKey: string; model: string; }
 
 const PROVIDERS: { id: Provider; label: string; helpUrl: string }[] = [
   { id: "deepseek", label: "DeepSeek", helpUrl: "https://platform.deepseek.com/api_keys" },
-  { id: "mimo", label: "MiMo", helpUrl: "https://platform.xiaomimimo.com/" },
+  { id: "mimo-token-plan", label: "MiMo (Token Plan)", helpUrl: "https://token-plan-cn.xiaomimimo.com/" },
+  { id: "mimo-api", label: "MiMo (API)", helpUrl: "https://platform.xiaomimimo.com/" },
   { id: "qwen", label: "通义千问", helpUrl: "https://dashscope.console.aliyun.com/apiKey" },
   { id: "step", label: "Step Plan", helpUrl: "https://platform.stepfun.com/docs/zh/step-plan/integrations/reasoning-api" },
 ];

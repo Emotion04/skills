@@ -1,6 +1,6 @@
 ---
 name: streaming-typing-effect
-description: Typewriter-style character-by-character rendering for AI streaming (SSE) output. Covers multi-panel concurrent streaming, auto-scroll, and pulse-dot loading indicators. Use when user wants typewriter effect, streaming text animation, SSE display, real-time AI output rendering, multi-panel concurrent streaming, or chat-style token-by-token display. Pair with plug-ai for the SSE parser.
+description: Typewriter-style character-by-character rendering for AI streaming (SSE) output. Covers multi-panel concurrent streaming, auto-scroll, and pulse-dot loading indicators. Use when user wants a typewriter effect or SSE token-by-token display. Pair with plug-ai for the SSE parser.
 ---
 
 # Streaming Typing Effect

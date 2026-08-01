@@ -9,7 +9,7 @@ description: 创建克制、优雅的黑白数字档案馆与编辑部风格网�
 
 ## 快速开始
 
-生成页面前，先读 [REFERENCE.md](REFERENCE.md)。然后确定：内容类型、时间跨度、Tab、统计字段、是否需要搜索/暗色模式/阅读浮层。
+生成页面前，先读 [references/design-reference.md](references/design-reference.md)。然后确定：内容类型、时间跨度、Tab、统计字段、是否需要搜索/暗色模式/阅读浮层。
 
 可直接使用以下提示词：
 

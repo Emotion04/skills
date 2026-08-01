@@ -65,7 +65,7 @@ background: linear-gradient(135deg, #e8eef5, #dce3ed, #e2e8f2, #d5dfea);
 background-attachment: fixed;
 ```
 
-> **开始实现前，先读 [REFERENCE.md](REFERENCE.md)**，里面有全部 19 套莫兰迪背景渐变、装饰元素（彩虹文字、像素网格、弹簧动画）、暗色模式玻璃和迷你胶囊模式。
+> **开始实现前，先读 [references/REFERENCE.md](references/REFERENCE.md)**，里面有全部 19 套莫兰迪背景渐变、装饰元素（彩虹文字、像素网格、弹簧动画）、暗色模式玻璃和迷你胶囊模式。
 
 备选背景全部是莫兰迪低饱和渐变（5 个停靠点，125°~160° 角，相邻色差仅 4-8 亮度值）。
 

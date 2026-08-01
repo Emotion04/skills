@@ -78,7 +78,7 @@ LERP = 0.10，每帧：
 
 ## 快速开始
 
-> **开始实现前，先读 [REFERENCE.md](REFERENCE.md)**，里面有完整的 4500K CSS 渐变配方、可调光球参数、拖拽指示器细节、指针处理伪代码和常见陷阱。
+> **开始实现前，先读 [references/REFERENCE.md](references/REFERENCE.md)**，里面有完整的 4500K CSS 渐变配方、可调光球参数、拖拽指示器细节、指针处理伪代码和常见陷阱。
 
 参考实现：`FloatingGlowTabBar.vue`——Vue 3 + Tailwind CSS v4，生产可用。
 

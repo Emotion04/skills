@@ -1,11 +1,11 @@
 ---
 name: token-counter
-description: Token counting and cost estimation for streaming AI API responses. Reads API usage fields for precision or estimates by character count. Covers DeepSeek, Qwen, MiMo, and Step Plan pricing. Use when user wants to track AI API costs, count tokens, estimate LLM expenses, or monitor token usage in streaming responses.
+description: Token counting for streaming AI API responses. Reads API usage fields for precision or estimates by character count. Covers DeepSeek, Qwen, MiMo, and Step Plan. Use when user wants to count tokens or monitor token usage in streaming responses.
 ---
 
 # Token Counter
 
-Track token usage and estimate costs for AI API responses.
+Track token usage for AI API responses.
 
 ## Two Approaches
 
@@ -48,35 +48,13 @@ function estimateTokens(text: string): number {
 }
 ```
 
-## Cost Calculation
-
-```ts
-function calcCost(promptTokens: number, completionTokens: number, prices: { in: number; out: number }): number {
-  return (promptTokens * prices.in + completionTokens * prices.out) / 1_000_000;
-}
-```
-
-## Pricing Reference (¥/1M tokens)
-
-| Provider | Model | Input | Output |
-|----------|-------|------:|-------:|
-| DeepSeek | deepseek-v4-flash | 1 | 2 |
-| DeepSeek | deepseek-v4-pro | 5 | 20 |
-| Qwen | qwen3.7-flash | 1 | 2 |
-| Qwen | qwen3.7-max | 12 | 36 |
-| MiMo | mimo-v2.5-pro | see website | see website |
-| Step Plan | step-3.7-flash | Credit-based | Credit-based |
-
-> Prices change. Check provider websites for current rates.
-
 ## UI Display
 
 ```tsx
-function TokenDisplay({ promptTokens, completionTokens, prices }: Props) {
-  const cost = calcCost(promptTokens, completionTokens, prices);
+function TokenDisplay({ promptTokens, completionTokens }: Props) {
   return (
     <span className="text-xs text-gray-400">
-      {promptTokens} → {completionTokens} tokens · ¥{cost.toFixed(4)}
+      {promptTokens} → {completionTokens} tokens
     </span>
   );
 }

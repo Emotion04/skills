@@ -27,7 +27,8 @@ Multi-provider AI integration — routing proxy, API key management, streaming p
 const PROVIDERS = {
   deepseek: { url: "https://api.deepseek.com", header: "Authorization", prefix: "Bearer " },
   qwen:     { url: "https://dashscope.aliyuncs.com/compatible-mode", header: "Authorization", prefix: "Bearer " },
-  mimo:     { url: "https://token-plan-cn.xiaomimomo.com", header: "api-key", prefix: "" },
+  mimo-token-plan: { url: "https://token-plan-cn.xiaomimomo.com", header: "api-key", prefix: "" },
+  mimo-api: { url: "https://api.xiaomimomo.com", header: "api-key", prefix: "" },
   step:     { url: "https://api.stepfun.com/step_plan", header: "Authorization", prefix: "Bearer " },
 };
 
@@ -61,7 +62,8 @@ const { text, streaming, stream, abort } = useStreamChat();
 | Provider | Base URL | Default Model |
 |----------|----------|---------------|
 | DeepSeek | `https://api.deepseek.com` | `deepseek-v4-flash` |
-| MiMo | `https://token-plan-cn.xiaomimomo.com` | `mimo-v2.5-pro` |
+| MiMo (Token Plan) | `https://token-plan-cn.xiaomimomo.com` | `mimo-v2.5-pro` |
+| MiMo (API) | `https://api.xiaomimomo.com` | `mimo-v2.5-pro` |
 | Qwen (Text) | `https://dashscope.aliyuncs.com/compatible-mode` | `qwen3.7-flash` |
 | Qwen (Image) | `https://dashscope.aliyuncs.com` | `qwen-image-2.0-pro` |
 | Step Plan | `https://api.stepfun.com/step_plan` | `step-3.7-flash` |
