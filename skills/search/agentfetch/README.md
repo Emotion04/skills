@@ -1,0 +1,189 @@
+# agentfetch
+
+面向 Claude Code 等 AI Agent 的浏览器驱动搜索与网页读取技能。通过用户真实 Chrome 会话基于 Google / Bing 搜索，支持微信公众号、GitHub 仓库搜索，并行搜索以及基于真实的网页访问。
+
+## ⭐快速使用
+
+1. 在你的浏览器中安装 [kimi-webbridge](https://kimi.com/features/webbridge)
+
+2. 终端输入
+```bash
+npx skills add yuhan-skill/agentfetch
+```
+
+或对你的agent说：
+```bash
+帮我安装：npx skills add yuhan-skill/agentfetch
+```
+
+3. 重启Claude Code 或你的 Agent 。
+
+安装后 Claude Code 自动加载，调用 `${CLAUDE_SKILL_DIR}/scripts/agentfetch.sh`，无需额外配置。
+
+### 不推荐
+也可通过 Claude Code Plugin Marketplace 安装：
+
+```bash
+claude plugin marketplace add https://github.com/yuhan-skill/agentfetch
+claude plugin install agentfetch@agentfetch-marketplace
+```
+
+## 前置依赖
+
+- 本地浏览器
+- [kimi-webbridge](https://kimi.com/features/webbridge) 守护进程正在运行
+- kimi-webbridge Chrome 扩展已连接
+
+GitHub 仓库搜索（`-e github`）使用公开 GitHub API，不需要 WebBridge。
+
+Agent 只需记住简单规则：
+
+- 用户提了一个主题或问题、需要发现来源 → 用 `search`。
+- 用户给了 URL 并附带问题 → 先用 `result` 读取页面，再基于正文回答。
+
+`result` 返回单个 JSON 对象，正文位于 `text` 字段。JSON 只是稳定的机器可读信封，不是网页内容的替代品。
+
+## 工作原理
+
+```text
+Claude Code Plugin
+  └─ 内置 agentfetch.exe
+       └─ kimi-webbridge (127.0.0.1:10086)
+            └─ 用户真实 Chrome 会话
+```
+
+Plugin 自带 Windows x64 可执行文件，通过插件相对路径调用。用户无需把 `agentfetch` 加入 `PATH`，也无需任何搜索 API Key。
+
+---
+
+*以下内容供开发使用*
+
+## CLI 命令
+
+```bash
+agentfetch search "查询关键词"
+agentfetch search "查询关键词" -e weixin
+agentfetch search "查询关键词" -e github
+agentfetch search "查询关键词" -a                    # 全引擎
+agentfetch search "查询关键词" -n 5                   # 每个引擎最多 5 条候选
+agentfetch search "查询关键词" -m cn                  # 本地结果
+agentfetch result "https://example.com"
+agentfetch result "https://example.com/docs" --find "关键词"
+```
+
+### 搜索
+
+`search` 默认并行查询 Google + Bing。`-n` 是**每个引擎的候选数**：`-n 5` 表示 Google 5 条、Bing 5 条，合并去重后返回 10 条结果。
+
+引擎选择：
+
+| 场景 | 命令 |
+|---|---|
+| 普通搜索 | 默认（Google + Bing） |
+| 微信公众号/中文本地内容 | `-e weixin` |
+| 代码仓库/SDK/Issue | `-e github` |
+| 明确要求多生态深度研究 | `-a` |
+
+输出为 JSON 数组：
+
+```json
+[{"title":"...","url":"...","snippet":"...","source":"google"}]
+```
+
+### 读取网页
+
+`result` 通过 kimi-webbridge 在用户真实 Chrome 中导航到指定 URL，提取渲染后 DOM 中的可读正文，不是原始 HTML。**每次调用拥有独立的浏览器 Session/Tab，并发读取多个 URL 不会互相抢占页面。**
+
+输出为单个 JSON 对象：
+
+```json
+{"url":"...","title":"...","description":"...","text":"...","text_length":24000,"returned_length":20000,"offset":0,"truncated":true}
+```
+
+默认返回最多 20,000 字符。使用 `-n 50000` 可增加到最多 100,000 字符。
+
+`truncated` 为 `true` 且缺失部分确实影响回答时，才用 `-o` 偏移量续读；不会机械地读完整页。
+
+### 页面内查找
+
+对于长页面，当用户明确问到某个术语时，可以用 `--find` 在已渲染页面中定位关键词，返回匹配位置附近的上下文（每段约 900 字符），最多 5 段：
+
+```bash
+agentfetch result "https://example.com/docs" --find "rate limit"
+```
+
+输出仍为单个 JSON 对象，增加可选字段：
+
+```json
+{"url":"...","title":"...","text":"...","find":"rate limit","match_count":2,"text_length":1800,"returned_length":1800,"offset":0,"truncated":false}
+```
+
+`--find` 只应在需要精确定位时使用，不是必选的 token 节省手段。不确定关键词时先用普通 `result`。
+
+## 工作流
+
+1. 简单事实 → `search -n 5`，通常直接基于摘要回答
+2. 需要验证/比较 → `search -n 5` → 并行 `result` 读取最相关 2 个来源 → 不足再读第 3 个
+3. 深度研究 → `search -n 10` → 按需扩展来源数量
+4. 交叉验证重要声明后即可停止，不要机械读取所有结果
+
+## 构建完整 Plugin
+
+PowerShell：
+
+```powershell
+.\scripts\build-plugin.ps1
+```
+
+这会运行 Go 测试和 vet，然后构建：
+
+```text
+plugin/agentfetch/bin/windows-amd64/agentfetch.exe
+```
+
+可分发 Plugin 完整位于 `plugin/agentfetch/`，包含清单、Skill、启动脚本和 EXE。
+
+## 本地验证
+
+```bash
+claude plugin validate --strict "D:/CCode/agentfetch/plugin/agentfetch"
+claude plugin validate --strict "D:/CCode/agentfetch"
+```
+
+## 从本地市场安装
+
+```bash
+claude plugin marketplace add "D:/CCode/agentfetch"
+claude plugin install agentfetch@agentfetch-marketplace
+```
+
+安装或更新 Plugin 后重启 Claude Code。
+
+常用管理命令：
+
+```bash
+claude plugin list
+claude plugin update agentfetch@agentfetch-marketplace
+claude plugin uninstall agentfetch@agentfetch-marketplace
+claude plugin marketplace remove agentfetch-marketplace
+```
+
+## 项目结构
+
+| 包 | 用途 |
+|---|---|
+| `browser/` | WebBridge HTTP 客户端（navigate、evaluate、status） |
+| `output/` | JSON 错误输出辅助 |
+| `retry/` | CDP 上下文重试（三级退避） |
+| `dedup/` | 标题相似度去重 + 域名上限 |
+| `merge/` | 跨引擎 URL 去重 + 多引擎命中排序，每引擎配额 |
+| `page/` | 基于 kimi-webbridge 的可读 DOM 正文提取 + 页面内关键词查找 |
+| `engines/` | Engine 接口 + 共享类型 + 各引擎实现 |
+| `cmd/` | Cobra CLI 入口、URL 校验、并发 Session 隔离 |
+
+## 添加新引擎
+
+1. 在 `engines/<name>/search.go` 实现 `engines.Engine` 接口
+2. 在 `cmd/root.go` 的 `engineRegistry` 中注册
+3. 如需默认启用，加入 `engines/engine.go` 的 `DefaultEngines`
+4. 完成 — 合并、去重、并行全部自动生效
