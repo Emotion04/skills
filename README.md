@@ -13,7 +13,7 @@
 ### AI 接入
 | Skill | 干什么 |
 |---|---|
-| plug-ai | 多供应商 AI 接入:路由代理、API Key 管理、浮动卡片 UI |
+| plug-ai | 多供应商 AI 接入:路由代理、API Key 管理、模型切换、SSE 流式输出、生图(模型 ID 自动核实) |
 | streaming-typing-effect | AI 流式输出的打字机效果 |
 | token-counter | 数 Token(读 API usage 字段,或按字符估算) |
 
